@@ -1,0 +1,65 @@
+#!/bin/sh
+# This file generates a recursive makefile, why?
+# I created this script because the makefile got too big, because of the large
+# amount of folders in the root folder.
+
+# Find all exercise folders
+FOLDERS="$(find -maxdepth 1 -type d -iname "d[0-9][0-9]" -printf "%p ")"
+
+# The complete Makefile template
+MAKEFILE="\
+.POSIX:
+
+include config.mk
+
+all: options build
+
+options:
+	@echo Build options:
+	@echo \"CFLAGS  = \$(MYCFLAGS)\"
+	@echo \"LDFLAGS = \$(MYLDFLAGS)\"
+	@echo \"CC      = \$(CC)\"
+
+# Build all target
+build:$(for folder in $FOLDERS; do echo -n " ${folder}"; done)
+# Test all target
+test:$(for folder in $FOLDERS; do echo -n " ${folder}_test"; done)
+
+# Per directory build targets
+$(
+	for folder in $FOLDERS; do
+		echo "${folder}:
+	\$(MAKE) -C $folder CONFIG_MK=\"../config.mk\" all"
+	done
+)
+
+# Per directory test targets
+$(
+	for folder in $FOLDERS; do
+		echo "${folder}_test:
+	\$(MAKE) -C $folder CONFIG_MK=\"../config.mk\" test"
+	done
+)
+
+# Clean all target
+clean:
+$(
+		for folder in $FOLDERS; do
+			echo "	\$(MAKE) -C $folder CONFIG_MK=\"../config.mk\" clean"
+		done
+)
+
+# Help target
+help:
+	@echo \"Available targets:\"
+	@echo \"build - Build all\"
+	@echo \"test - Test all\"
+	@echo \"./x.x - Build x.x\"
+	@echo \"./x.x_test - Test x.x\"
+	@echo \"clean - Clean all\"
+
+# Configure phony for clean & all folders
+.PHONY: clean $FOLDERS
+"
+
+echo "$MAKEFILE"

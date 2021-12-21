@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdint.h>
 
-#define BITS_PER_LINE 12
+#define BITS_PER_LINE ((size_t)12)
 
 int to_decimal(unsigned char bits[BITS_PER_LINE]);
 
@@ -13,6 +14,13 @@ int main(void)
 
 	/* Go through input. */
 	while ((c = getchar()) != EOF) {
+		/* Catch stack overflow. */
+		if (i >= BITS_PER_LINE) {
+			fprintf(stderr, "More bits than expected %zu/%zu\n",
+			        i + 1, BITS_PER_LINE);
+			return 1;
+		}
+
 		switch (c) {
 		case '0':
 			count0[i]++;

@@ -3,8 +3,10 @@
 ## Compiling
 Generate Makefile:
 `./genmake > Makefile`
+
 List targets:
 `make help`
+
 Compile one subproject:
 `make`
 

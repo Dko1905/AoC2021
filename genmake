@@ -54,8 +54,8 @@ help:
 	@echo \"Available targets:\"
 	@echo \"build - Build all\"
 	@echo \"test - Test all\"
-	@echo \"./x.x - Build x.x\"
-	@echo \"./x.x_test - Test x.x\"
+	@echo \"./dxxy - Build dxxy\"
+	@echo \"./dxxy - Test dxxy\"
 	@echo \"clean - Clean all\"
 
 # Configure phony for clean & all folders

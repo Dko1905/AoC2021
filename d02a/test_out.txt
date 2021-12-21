@@ -1,0 +1,3 @@
+x: 68	y: -80
+hpos: 68	depth: 80
+result: 5440

@@ -4,7 +4,7 @@
 # amount of folders in the root folder.
 
 # Find all exercise folders
-FOLDERS="$(find -maxdepth 1 -type d -iname "d[0-9][0-9][a-z]" -printf "%p ")"
+FOLDERS="$(find . -maxdepth 1 -type d -iname "d[0-9][0-9][a-z]" -printf "%p ")"
 
 # The complete Makefile template
 MAKEFILE="\

@@ -1,2 +1,2 @@
-Gamma: 1117	Epsilon: 2978
-Power consumption: 3326426
+oxygen: 1991	co2: 3982
+result: 7928162
